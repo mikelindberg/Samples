@@ -1,0 +1,13 @@
+/Users/michaellindberg/Documents/Samples/ConnectedVehicle/locationreceiver/bin/Debug/netcoreapp2.1/locationreceiver.deps.json
+/Users/michaellindberg/Documents/Samples/ConnectedVehicle/locationreceiver/bin/Debug/netcoreapp2.1/locationreceiver.runtimeconfig.json
+/Users/michaellindberg/Documents/Samples/ConnectedVehicle/locationreceiver/bin/Debug/netcoreapp2.1/locationreceiver.runtimeconfig.dev.json
+/Users/michaellindberg/Documents/Samples/ConnectedVehicle/locationreceiver/bin/Debug/netcoreapp2.1/locationreceiver.dll
+/Users/michaellindberg/Documents/Samples/ConnectedVehicle/locationreceiver/bin/Debug/netcoreapp2.1/locationreceiver.pdb
+/Users/michaellindberg/Documents/Samples/ConnectedVehicle/locationreceiver/obj/Debug/netcoreapp2.1/locationreceiver.csprojAssemblyReference.cache
+/Users/michaellindberg/Documents/Samples/ConnectedVehicle/locationreceiver/obj/Debug/netcoreapp2.1/locationreceiver.csproj.CoreCompileInputs.cache
+/Users/michaellindberg/Documents/Samples/ConnectedVehicle/locationreceiver/obj/Debug/netcoreapp2.1/locationreceiver.AssemblyInfoInputs.cache
+/Users/michaellindberg/Documents/Samples/ConnectedVehicle/locationreceiver/obj/Debug/netcoreapp2.1/locationreceiver.AssemblyInfo.cs
+/Users/michaellindberg/Documents/Samples/ConnectedVehicle/locationreceiver/obj/Debug/netcoreapp2.1/locationreceiver.dll
+/Users/michaellindberg/Documents/Samples/ConnectedVehicle/locationreceiver/obj/Debug/netcoreapp2.1/locationreceiver.pdb
+/Users/michaellindberg/Documents/Samples/ConnectedVehicle/locationreceiver/obj/Debug/netcoreapp2.1/UserSecretsAssemblyInfo.cs
+/Users/michaellindberg/Documents/Samples/ConnectedVehicle/locationreceiver/bin/Debug/netcoreapp2.1/appsettings.json
