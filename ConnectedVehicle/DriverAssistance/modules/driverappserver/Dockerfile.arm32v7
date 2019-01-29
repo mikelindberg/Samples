@@ -1,0 +1,17 @@
+FROM arm32v7/node:8-slim
+
+WORKDIR /app/
+
+COPY package*.json ./
+
+RUN npm install --production
+
+COPY app.js ./
+ADD routes ./routes
+
+USER node
+
+# Expose the port
+EXPOSE 4001
+
+CMD ["node", "app.js"]

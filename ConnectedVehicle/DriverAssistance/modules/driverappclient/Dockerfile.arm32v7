@@ -1,0 +1,15 @@
+# base image
+FROM arm32v7/node:8-slim
+
+WORKDIR /app
+
+COPY . ./
+
+# RUN yarn
+# RUN yarn build
+
+# Expose the port
+EXPOSE 3000
+
+# start app
+CMD ["npm", "start"]

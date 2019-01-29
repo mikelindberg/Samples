@@ -24,9 +24,9 @@ namespace vehiclesimulator
         public DeviceSimulator(string connectionString)
         {
             this.connectionString = connectionString;
-            deviceId = Regex.Match(connectionString, @"\b[DeviceId([=])]\w+?(?=;)\b").Value;
+            deviceId = Regex.Match(connectionString, @"\b[DeviceId=]\w+?(?=;)\b").Value.Replace("=", "");
             Console.WriteLine(deviceId);
-            // var result = InitDevice();
+            var result = InitDevice();
         }
 
         public Task InitDevice()
@@ -51,7 +51,7 @@ namespace vehiclesimulator
             {
                 try
                 {
-                    litersInTank = litersInTank - 0.1;
+                    litersInTank = litersInTank < 0.5 ? 15.0 : litersInTank - 0.1;
                     var vehicleData = new VehicleData()
                     {
                         LitersInTank = litersInTank,
@@ -121,7 +121,7 @@ namespace vehiclesimulator
                     run = false;
                     Console.WriteLine(ex.Message);
                 }
-                await Task.Delay(10000);
+                await Task.Delay(2000);
             }
         }
     }

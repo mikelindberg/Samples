@@ -9,3 +9,14 @@
 /Users/michaellindberg/Documents/Samples/ConnectedVehicle/vehiclesimulator/obj/Debug/netcoreapp2.1/vehiclesimulator.AssemblyInfo.cs
 /Users/michaellindberg/Documents/Samples/ConnectedVehicle/vehiclesimulator/obj/Debug/netcoreapp2.1/vehiclesimulator.dll
 /Users/michaellindberg/Documents/Samples/ConnectedVehicle/vehiclesimulator/obj/Debug/netcoreapp2.1/vehiclesimulator.pdb
+C:\Samples\ConnectedVehicle\vehiclesimulator\bin\Debug\netcoreapp2.1\vehiclesimulator.deps.json
+C:\Samples\ConnectedVehicle\vehiclesimulator\bin\Debug\netcoreapp2.1\vehiclesimulator.runtimeconfig.json
+C:\Samples\ConnectedVehicle\vehiclesimulator\bin\Debug\netcoreapp2.1\vehiclesimulator.runtimeconfig.dev.json
+C:\Samples\ConnectedVehicle\vehiclesimulator\bin\Debug\netcoreapp2.1\vehiclesimulator.dll
+C:\Samples\ConnectedVehicle\vehiclesimulator\bin\Debug\netcoreapp2.1\vehiclesimulator.pdb
+C:\Samples\ConnectedVehicle\vehiclesimulator\obj\Debug\netcoreapp2.1\vehiclesimulator.csprojAssemblyReference.cache
+C:\Samples\ConnectedVehicle\vehiclesimulator\obj\Debug\netcoreapp2.1\vehiclesimulator.csproj.CoreCompileInputs.cache
+C:\Samples\ConnectedVehicle\vehiclesimulator\obj\Debug\netcoreapp2.1\vehiclesimulator.AssemblyInfoInputs.cache
+C:\Samples\ConnectedVehicle\vehiclesimulator\obj\Debug\netcoreapp2.1\vehiclesimulator.AssemblyInfo.cs
+C:\Samples\ConnectedVehicle\vehiclesimulator\obj\Debug\netcoreapp2.1\vehiclesimulator.dll
+C:\Samples\ConnectedVehicle\vehiclesimulator\obj\Debug\netcoreapp2.1\vehiclesimulator.pdb
