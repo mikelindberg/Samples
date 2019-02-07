@@ -31,7 +31,7 @@ class App extends Component {
             <tbody>
               <tr>
                 <td align="left">
-                  <img src={volvologo} className="App-logo" alt="logo" />
+                  <img src={logo} className="App-logo" alt="logo" />
                   <p style={{ fontSize: 24, fontStyle: "bold" }}>Contoso Drive</p>
                 </td>
                 <td>
