@@ -1,0 +1,11 @@
+/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetrySimulator/bin/Debug/netcoreapp2.2/telemetrySimulator.deps.json
+/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetrySimulator/bin/Debug/netcoreapp2.2/telemetrySimulator.runtimeconfig.json
+/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetrySimulator/bin/Debug/netcoreapp2.2/telemetrySimulator.runtimeconfig.dev.json
+/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetrySimulator/bin/Debug/netcoreapp2.2/telemetrySimulator.dll
+/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetrySimulator/bin/Debug/netcoreapp2.2/telemetrySimulator.pdb
+/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetrySimulator/obj/Debug/netcoreapp2.2/telemetrySimulator.csprojAssemblyReference.cache
+/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetrySimulator/obj/Debug/netcoreapp2.2/telemetrySimulator.csproj.CoreCompileInputs.cache
+/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetrySimulator/obj/Debug/netcoreapp2.2/telemetrySimulator.AssemblyInfoInputs.cache
+/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetrySimulator/obj/Debug/netcoreapp2.2/telemetrySimulator.AssemblyInfo.cs
+/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetrySimulator/obj/Debug/netcoreapp2.2/telemetrySimulator.dll
+/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetrySimulator/obj/Debug/netcoreapp2.2/telemetrySimulator.pdb

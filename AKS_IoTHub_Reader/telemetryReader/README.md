@@ -1,6 +1,6 @@
 # Telemetry Reader
 
-For the telemetry reader to work you need to add a settings file in the following json format.
+For the telemetry reader to work you need to add a json file called appsettings.json with the following content.
 
 ```json
 {

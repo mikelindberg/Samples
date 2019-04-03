@@ -1,3 +1,4 @@
 # ignore appsettings
 appsettings.json
 bin/*
+obj/*
