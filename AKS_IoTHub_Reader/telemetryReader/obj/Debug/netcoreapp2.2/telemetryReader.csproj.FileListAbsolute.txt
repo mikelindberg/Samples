@@ -1,0 +1,12 @@
+C:\Samples\AKS_IoTHub_Reader\telemetryReader\bin\Debug\netcoreapp2.2\appsettings.json
+C:\Samples\AKS_IoTHub_Reader\telemetryReader\bin\Debug\netcoreapp2.2\telemetryReader.deps.json
+C:\Samples\AKS_IoTHub_Reader\telemetryReader\bin\Debug\netcoreapp2.2\telemetryReader.runtimeconfig.json
+C:\Samples\AKS_IoTHub_Reader\telemetryReader\bin\Debug\netcoreapp2.2\telemetryReader.runtimeconfig.dev.json
+C:\Samples\AKS_IoTHub_Reader\telemetryReader\bin\Debug\netcoreapp2.2\telemetryReader.dll
+C:\Samples\AKS_IoTHub_Reader\telemetryReader\bin\Debug\netcoreapp2.2\telemetryReader.pdb
+C:\Samples\AKS_IoTHub_Reader\telemetryReader\obj\Debug\netcoreapp2.2\telemetryReader.csprojAssemblyReference.cache
+C:\Samples\AKS_IoTHub_Reader\telemetryReader\obj\Debug\netcoreapp2.2\telemetryReader.csproj.CoreCompileInputs.cache
+C:\Samples\AKS_IoTHub_Reader\telemetryReader\obj\Debug\netcoreapp2.2\telemetryReader.AssemblyInfoInputs.cache
+C:\Samples\AKS_IoTHub_Reader\telemetryReader\obj\Debug\netcoreapp2.2\telemetryReader.AssemblyInfo.cs
+C:\Samples\AKS_IoTHub_Reader\telemetryReader\obj\Debug\netcoreapp2.2\telemetryReader.dll
+C:\Samples\AKS_IoTHub_Reader\telemetryReader\obj\Debug\netcoreapp2.2\telemetryReader.pdb
