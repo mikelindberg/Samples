@@ -22,3 +22,4 @@ C:/Samples/AKS_IoTHub_Reader/telemetryReader/obj/Debug/netcoreapp2.2/telemetryRe
 /Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetryReader/obj/Debug/netcoreapp2.2/telemetryReader.dll
 /Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetryReader/obj/Debug/netcoreapp2.2/telemetryReader.pdb
 /Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetryReader/bin/Debug/netcoreapp2.2/appsettings.json
+/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetryReader/bin/Debug/netcoreapp2.2/Microsoft.Azure.Documents.ServiceInterop.dll

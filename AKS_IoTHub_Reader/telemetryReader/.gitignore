@@ -1,4 +1,4 @@
-# ignore appsettings
+# ignore
 appsettings.json
 bin/*
 obj/*
