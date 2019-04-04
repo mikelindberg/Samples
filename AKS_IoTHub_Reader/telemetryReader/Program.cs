@@ -9,7 +9,7 @@ namespace telemetryReader
 {
     class Program
     {
-       #region secrets
+        #region secrets
         //All secrets are configured with Secret Manager Tool! 
         //You can see each secret setup above the secret it self!
 
@@ -49,6 +49,10 @@ namespace telemetryReader
             //Storage settings
             string StorageContainerName = Configuration["StorageContainerName"];
             string StorageConnectionString = Configuration["StorageConnectionString"];
+
+
+            Console.WriteLine("Eventhub: " + EventHubName);
+            Console.WriteLine("Storage container: " + StorageContainerName);
 
             //Setup event processor host
             var eventProcessorHost = new EventProcessorHost(
