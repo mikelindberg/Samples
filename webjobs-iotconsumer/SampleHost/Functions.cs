@@ -14,8 +14,7 @@ namespace SampleHost
     public class Functions
     {
 
-        public void ProcessEvents([EventHubTrigger("aksIoTHub", Connection = "TestEventHubConnection")] EventData[] events,
-            ILogger log)
+        public void ProcessEvents([EventHubTrigger("aksIoTHub", Connection = "TestEventHubConnection")] EventData[] events, ILogger log)
         {
             foreach (var evt in events)
             {

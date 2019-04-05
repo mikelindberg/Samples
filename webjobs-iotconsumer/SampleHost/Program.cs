@@ -24,7 +24,7 @@ namespace SampleHost
                 })
                 .ConfigureAppConfiguration(b =>
                 {
-                    b.AddJsonFile("appsettings.json");
+                    b.AddJsonFile("appsettings.development.json");
                 })
                 .ConfigureLogging((context, b) =>
                 {
@@ -32,11 +32,11 @@ namespace SampleHost
                     b.AddConsole();
 
                     // If this key exists in any config, use it to enable App Insights
-                    string appInsightsKey = context.Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"];
-                    if (!string.IsNullOrEmpty(appInsightsKey))
-                    {
-                        b.AddApplicationInsights(o => o.InstrumentationKey = appInsightsKey);
-                    }
+                    //string appInsightsKey = context.Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"];
+                    //if (!string.IsNullOrEmpty(appInsightsKey))
+                    //{
+                    //    b.AddApplicationInsights(o => o.InstrumentationKey = appInsightsKey);
+                    //}
                 })
                 .UseConsoleLifetime();
 
