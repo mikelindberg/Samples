@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.AzureAppServices;
 
 namespace SampleHost
 {
@@ -24,12 +25,14 @@ namespace SampleHost
                 })
                 .ConfigureAppConfiguration(b =>
                 {
-                    b.AddJsonFile("appsettings.development.json");
+                    b.AddJsonFile("appsettings.json");
                 })
                 .ConfigureLogging((context, b) =>
                 {
-                    b.SetMinimumLevel(LogLevel.Debug);
-                    b.AddConsole();
+                    b.SetMinimumLevel(LogLevel.Information);
+
+                    b.AddAzureWebAppDiagnostics();
+                    //b.AddConsole();
 
                     // If this key exists in any config, use it to enable App Insights
                     //string appInsightsKey = context.Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"];
@@ -38,6 +41,16 @@ namespace SampleHost
                     //    b.AddApplicationInsights(o => o.InstrumentationKey = appInsightsKey);
                     //}
                 })
+                .ConfigureServices(serviceCollection => serviceCollection
+                .Configure<AzureFileLoggerOptions>(options =>
+                {
+                    options.FileName = "azure-diagnostics-";
+                    options.FileSizeLimit = 50 * 1024;
+                    options.RetainedFileCountLimit = 5;
+                }).Configure<AzureBlobLoggerOptions>(options =>
+                {
+                    options.BlobName = "log.txt";
+                }))
                 .UseConsoleLifetime();
 
             var host = builder.Build();
