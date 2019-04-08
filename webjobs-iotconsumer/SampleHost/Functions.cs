@@ -23,7 +23,7 @@ namespace SampleHost
                     $"Event processed (Offset={evt.SystemProperties.Offset}, " +
                     $"SequenceNumber={evt.SystemProperties.SequenceNumber}), " +
                     $"EnqueueTimeUtc={evt.SystemProperties.EnqueuedTimeUtc}, " +
-                    $"EnqueueTime-Now={evt.SystemProperties.EnqueuedTimeUtc - System.DateTime.UtcNow}");
+                    $"EnqueueTime-Now={System.DateTime.UtcNow - evt.SystemProperties.EnqueuedTimeUtc}");
 
 
                 //log.LogInformation(
