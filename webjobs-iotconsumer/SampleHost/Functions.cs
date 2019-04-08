@@ -16,9 +16,21 @@ namespace SampleHost
 
         public void ProcessEvents([EventHubTrigger("aksIoTHub", Connection = "TestEventHubConnection")] EventData[] events, ILogger log)
         {
+
             foreach (var evt in events)
             {
-                log.LogInformation($"Event processed (Offset={evt.SystemProperties.Offset}, SequenceNumber={evt.SystemProperties.SequenceNumber})");
+                log.LogTrace(new EventId(505, "Event Processed"),
+                    $"Event processed (Offset={evt.SystemProperties.Offset}, " +
+                    $"SequenceNumber={evt.SystemProperties.SequenceNumber}), " +
+                    $"EnqueueTimeUtc={evt.SystemProperties.EnqueuedTimeUtc}, " +
+                    $"EnqueueTime-Now={evt.SystemProperties.EnqueuedTimeUtc - System.DateTime.UtcNow}");
+
+
+                //log.LogInformation(
+                //    $"Event processed (Offset={evt.SystemProperties.Offset}, " +
+                //    $"SequenceNumber={evt.SystemProperties.SequenceNumber}), " +
+                //    $"EnqueueTimeUtc={evt.SystemProperties.EnqueuedTimeUtc}, " +
+                //    $"EnqueueTime-Now={evt.SystemProperties.EnqueuedTimeUtc - System.DateTime.UtcNow}");
             }
         }
     }
