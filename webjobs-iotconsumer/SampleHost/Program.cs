@@ -3,6 +3,8 @@
 
 using System;
 using System.Threading.Tasks;
+using Microsoft.Azure.EventHubs;
+using Microsoft.Azure.EventHubs.Processor;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +18,14 @@ namespace SampleHost
     {
         public static async Task Main(string[] args)
         {
+            InitializeConfiguration();
+            var runAsFunction = Boolean.Parse( Configuration["runAsFunction"]);
+            if(runAsFunction == true) await RunAsFunction();
+            else await RunAsEPHProcessor();
+        }
 
+        static async Task RunAsFunction()
+        {
 
             string globalAppInsightsKey = String.Empty;
             var builder = new HostBuilder()
@@ -50,30 +59,62 @@ namespace SampleHost
                         b.AddApplicationInsights(o => o.InstrumentationKey = appInsightsKey);
                     }
                 })
-                //.ConfigureServices(serviceCollection => serviceCollection
-                //.Configure<AzureFileLoggerOptions>(options =>
-                //{
-                //    options.FileName = "azure-diagnostics-";
-                //    options.FileSizeLimit = 50 * 1024;
-                //    options.RetainedFileCountLimit = 5;
-                //}).Configure<AzureBlobLoggerOptions>(options =>
-                //{
-                //    options.BlobName = "log.txt";
-                //}))
                 .UseConsoleLifetime();
 
             var host = builder.Build();
             using (host)
             {
-
                 var config = new Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration(globalAppInsightsKey);
                 var telemetry = new Microsoft.ApplicationInsights.TelemetryClient(config);
                 telemetry.TrackTrace("WebJob host initialized and starting...");
 
                 await host.RunAsync();
-
-
             }
+        }
+
+        private static IConfigurationRoot Configuration { get; set; }
+
+        private static void InitializeConfiguration()
+        {
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.development.json", false, true);
+            Configuration = builder.Build();
+        }
+
+        static async Task RunAsEPHProcessor()
+        {
+
+
+            //Event hub settings
+            string EventHubName = Configuration["EventHubName"];
+            string EventHubConnectionString = Configuration["ConnectionStrings:TestEventHubConnection"];
+
+            //Storage settings
+            string StorageContainerName = Configuration["StorageContainerName"];
+            string StorageConnectionString = Configuration["ConnectionStrings:AzureWebJobsStorage"];
+
+            //Setup event processor host
+
+            var eventProcessorHost = new EventProcessorHost(
+                EventHubName,
+                PartitionReceiver.DefaultConsumerGroupName,
+                EventHubConnectionString,
+                StorageConnectionString,
+                StorageContainerName);
+
+
+            // Registers the Event Processor Host and starts receiving messages
+            await eventProcessorHost.RegisterEventProcessorAsync<SimpleEventProcessor>();
+
+
+            Console.WriteLine("Receiving. Press ENTER to stop worker.");
+
+            Console.ReadLine();
+
+            // Disposes of the Event Processor Host
+            //await eventProcessorHost.UnregisterEventProcessorAsync();
+
+
         }
     }
 }
