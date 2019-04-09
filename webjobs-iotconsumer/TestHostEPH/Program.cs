@@ -5,7 +5,7 @@ using Microsoft.Azure.EventHubs.Processor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
+using Microsoft.ApplicationInsights.DataContracts;
 
 namespace TestHostEPH
 {
@@ -30,7 +30,7 @@ namespace TestHostEPH
             var appinsightKey = Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"];
             var config = new Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration(appinsightKey);
             telemetry = new Microsoft.ApplicationInsights.TelemetryClient(config);
-            telemetry.TrackTrace("EPH configuration initialized...");
+            telemetry.TrackTrace("EPH configuration initialized...", SeverityLevel.Information);
         }
 
         static async Task RunAsEPHProcessor()

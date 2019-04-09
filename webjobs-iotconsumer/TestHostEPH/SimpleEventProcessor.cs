@@ -10,6 +10,7 @@ using System.Collections.Generic;
 
 using System.Text;
 using Microsoft.Extensions.Logging;
+using Microsoft.ApplicationInsights.DataContracts;
 
 namespace TestHostEPH
 {
@@ -23,7 +24,7 @@ namespace TestHostEPH
         {
             var config = new Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration("e53c5bd5-6da4-4fa9-81eb-2a33cc6e1d0c");
             telemetry = new Microsoft.ApplicationInsights.TelemetryClient(config);
-            telemetry.TrackTrace("SimpleEventProcessor initialized...");
+            telemetry.TrackTrace("SimpleEventProcessor initialized...", SeverityLevel.Information);
         }
 
 
@@ -31,7 +32,7 @@ namespace TestHostEPH
 
         {
 
-            telemetry.TrackTrace($"Processor Shutting Down. Partition '{context.PartitionId}', Reason: '{reason}'.");
+            telemetry.TrackTrace($"Processor Shutting Down. Partition '{context.PartitionId}', Reason: '{reason}'.", SeverityLevel.Information);
 
             return Task.CompletedTask;
 
@@ -43,7 +44,7 @@ namespace TestHostEPH
 
         {
 
-            telemetry.TrackTrace($"SimpleEventProcessor initialized. Partition: '{context.PartitionId}'");
+            telemetry.TrackTrace($"SimpleEventProcessor initialized. Partition: '{context.PartitionId}'", SeverityLevel.Information);
 
             return Task.CompletedTask;
 
@@ -55,7 +56,7 @@ namespace TestHostEPH
 
         {
 
-            telemetry.TrackTrace($"Error on Partition: {context.PartitionId}, Error: {error.Message}");
+            telemetry.TrackTrace($"Error on Partition: {context.PartitionId}, Error: {error.Message}", SeverityLevel.Information);
 
             return Task.CompletedTask;
 
@@ -75,7 +76,7 @@ namespace TestHostEPH
                     $"SequenceNumber={eventData.SystemProperties.SequenceNumber}), " +
                     $"EnqueueTimeUtc={eventData.SystemProperties.EnqueuedTimeUtc}, " +
                     $"EnqueueTime-Now={System.DateTime.UtcNow.Subtract(eventData.SystemProperties.EnqueuedTimeUtc).TotalMilliseconds}, " +
-                    $"PartitionId={context.PartitionId}", Microsoft.ApplicationInsights.DataContracts.SeverityLevel.Verbose);
+                    $"PartitionId={context.PartitionId}", SeverityLevel.Verbose);
 
             }
             return context.CheckpointAsync();
