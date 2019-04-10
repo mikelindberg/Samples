@@ -70,13 +70,14 @@ namespace TestHostEPH
             {
 
                 var data = Encoding.UTF8.GetString(eventData.Body.Array, eventData.Body.Offset, eventData.Body.Count);
-
+                var tt = new TraceTelemetry();
+                
                 telemetry.TrackTrace(
-                    $"Event processed (Offset={eventData.SystemProperties.Offset}, " +
-                    $"SequenceNumber={eventData.SystemProperties.SequenceNumber}), " +
+                    $"EPH ProcessEventsAsync (Offset={eventData.SystemProperties.Offset}, " +
+                    $"SequenceNumber={eventData.SystemProperties.SequenceNumber}, " +
                     $"EnqueueTimeUtc={eventData.SystemProperties.EnqueuedTimeUtc}, " +
                     $"EnqueueTime-Now={System.DateTime.UtcNow.Subtract(eventData.SystemProperties.EnqueuedTimeUtc).TotalMilliseconds}, " +
-                    $"PartitionId={context.PartitionId}", SeverityLevel.Verbose);
+                    $"PartitionId={context.PartitionId})", SeverityLevel.Verbose);
 
             }
             return context.CheckpointAsync();
