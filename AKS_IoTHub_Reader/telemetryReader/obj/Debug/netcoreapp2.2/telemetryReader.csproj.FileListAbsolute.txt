@@ -23,3 +23,16 @@ C:/Samples/AKS_IoTHub_Reader/telemetryReader/obj/Debug/netcoreapp2.2/telemetryRe
 /Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetryReader/obj/Debug/netcoreapp2.2/telemetryReader.pdb
 /Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetryReader/bin/Debug/netcoreapp2.2/appsettings.json
 /Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetryReader/bin/Debug/netcoreapp2.2/Microsoft.Azure.Documents.ServiceInterop.dll
+/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetryReader/bin/Debug/netcoreapp2.2/Microsoft.Azure.Documents.ServiceInterop.dll
+/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetryReader/bin/Debug/netcoreapp2.2/appsettings.json
+/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetryReader/bin/Debug/netcoreapp2.2/telemetryReader.deps.json
+/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetryReader/bin/Debug/netcoreapp2.2/telemetryReader.runtimeconfig.json
+/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetryReader/bin/Debug/netcoreapp2.2/telemetryReader.runtimeconfig.dev.json
+/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetryReader/bin/Debug/netcoreapp2.2/telemetryReader.dll
+/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetryReader/bin/Debug/netcoreapp2.2/telemetryReader.pdb
+/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetryReader/obj/Debug/netcoreapp2.2/telemetryReader.csprojAssemblyReference.cache
+/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetryReader/obj/Debug/netcoreapp2.2/telemetryReader.csproj.CoreCompileInputs.cache
+/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetryReader/obj/Debug/netcoreapp2.2/telemetryReader.AssemblyInfoInputs.cache
+/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetryReader/obj/Debug/netcoreapp2.2/telemetryReader.AssemblyInfo.cs
+/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetryReader/obj/Debug/netcoreapp2.2/telemetryReader.dll
+/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetryReader/obj/Debug/netcoreapp2.2/telemetryReader.pdb

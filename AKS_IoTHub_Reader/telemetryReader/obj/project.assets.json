@@ -15,7 +15,7 @@
           "lib/netstandard1.3/Microsoft.Azure.Amqp.dll": {}
         }
       },
-      "Microsoft.Azure.DocumentDB.Core/2.2.3": {
+      "Microsoft.Azure.DocumentDB.Core/2.3.0": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
@@ -166,6 +166,27 @@
         "build": {
           "build/netstandard2.0/Microsoft.Extensions.Configuration.UserSecrets.props": {},
           "build/netstandard2.0/Microsoft.Extensions.Configuration.UserSecrets.targets": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.2.0"
+        },
+        "compile": {
+          "lib/netcoreapp2.0/Microsoft.Extensions.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/Microsoft.Extensions.DependencyInjection.dll": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/2.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
         }
       },
       "Microsoft.Extensions.FileProviders.Abstractions/2.2.0": {
@@ -2258,17 +2279,17 @@
         "microsoft.azure.amqp.nuspec"
       ]
     },
-    "Microsoft.Azure.DocumentDB.Core/2.2.3": {
-      "sha512": "37rZC1WnU5ucL81JA64dtwc/1FWob4lSOYoys+InY0kaHSdAbZNrBx/1h/NsbETxmwGrVOSLbt5DXYyOkFZ0sw==",
+    "Microsoft.Azure.DocumentDB.Core/2.3.0": {
+      "sha512": "2L5DjeFG+nZWawLdO7VADOMIpaa7KNnuXPbN0mw2yHgO4TJ2ZtSEjBOQejM9kn9x6OgAZmlopptaMeykcBsQRw==",
       "type": "package",
-      "path": "microsoft.azure.documentdb.core/2.2.3",
+      "path": "microsoft.azure.documentdb.core/2.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "build/Microsoft.Azure.DocumentDB.Core.targets",
         "lib/netstandard1.5/Microsoft.Azure.DocumentDB.Core.dll",
         "lib/netstandard1.6/Microsoft.Azure.DocumentDB.Core.dll",
-        "microsoft.azure.documentdb.core.2.2.3.nupkg.sha512",
+        "microsoft.azure.documentdb.core.2.3.0.nupkg.sha512",
         "microsoft.azure.documentdb.core.nuspec",
         "runtimes/win7-x64/native/Microsoft.Azure.Documents.ServiceInterop.dll"
       ]
@@ -2392,6 +2413,36 @@
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.UserSecrets.xml",
         "microsoft.extensions.configuration.usersecrets.2.2.0.nupkg.sha512",
         "microsoft.extensions.configuration.usersecrets.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.DependencyInjection/2.2.0": {
+      "sha512": "7JzIJyfA1Wr19ibRr67CoG3lFklnTkzhkJ6thWFcNrmZCgLf9oEqrED4Tz08y7F18wTWsWUnI52BCjraBGtPIA==",
+      "type": "package",
+      "path": "microsoft.extensions.dependencyinjection/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net461/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/netcoreapp2.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/netcoreapp2.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.xml",
+        "microsoft.extensions.dependencyinjection.2.2.0.nupkg.sha512",
+        "microsoft.extensions.dependencyinjection.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/2.2.0": {
+      "sha512": "YZcHF0/+XeKv12ZEo+OmrAa6rNayjye0qvEjYSDIhN99StqxnS2gZpwkcCrH/8JuXxzzcDSVpZw5Bruz8xYfXQ==",
+      "type": "package",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "microsoft.extensions.dependencyinjection.abstractions.2.2.0.nupkg.sha512",
+        "microsoft.extensions.dependencyinjection.abstractions.nuspec"
       ]
     },
     "Microsoft.Extensions.FileProviders.Abstractions/2.2.0": {
@@ -7304,12 +7355,13 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.2": [
-      "Microsoft.Azure.DocumentDB.Core >= 2.2.3",
+      "Microsoft.Azure.DocumentDB.Core >= 2.3.0",
       "Microsoft.Azure.EventHubs >= 3.0.0",
       "Microsoft.Azure.EventHubs.Processor >= 3.0.0",
       "Microsoft.Extensions.Configuration >= 2.2.0",
       "Microsoft.Extensions.Configuration.Json >= 2.2.0",
       "Microsoft.Extensions.Configuration.UserSecrets >= 2.2.0",
+      "Microsoft.Extensions.DependencyInjection >= 2.2.0",
       "Microsoft.NETCore.App >= 2.2.0"
     ]
   },
@@ -7320,11 +7372,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetryReader/telemetryReader.csproj",
+      "projectUniqueName": "/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetryReader/telemetryReader.csproj",
       "projectName": "telemetryReader",
-      "projectPath": "/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetryReader/telemetryReader.csproj",
+      "projectPath": "/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetryReader/telemetryReader.csproj",
       "packagesPath": "/Users/michaellindberg/.nuget/packages/",
-      "outputPath": "/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetryReader/obj/",
+      "outputPath": "/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetryReader/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -7354,7 +7406,7 @@
         "dependencies": {
           "Microsoft.Azure.DocumentDB.Core": {
             "target": "Package",
-            "version": "[2.2.3, )"
+            "version": "[2.3.0, )"
           },
           "Microsoft.Azure.EventHubs": {
             "target": "Package",
@@ -7373,6 +7425,10 @@
             "version": "[2.2.0, )"
           },
           "Microsoft.Extensions.Configuration.UserSecrets": {
+            "target": "Package",
+            "version": "[2.2.0, )"
+          },
+          "Microsoft.Extensions.DependencyInjection": {
             "target": "Package",
             "version": "[2.2.0, )"
           },

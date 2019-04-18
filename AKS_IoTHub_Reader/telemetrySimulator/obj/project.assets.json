@@ -692,11 +692,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetrySimulator/telemetrySimulator.csproj",
+      "projectUniqueName": "/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetrySimulator/telemetrySimulator.csproj",
       "projectName": "telemetrySimulator",
-      "projectPath": "/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetrySimulator/telemetrySimulator.csproj",
+      "projectPath": "/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetrySimulator/telemetrySimulator.csproj",
       "packagesPath": "/Users/michaellindberg/.nuget/packages/",
-      "outputPath": "/Users/michaellindberg/Documents/Samples/AKS_IoTHub_Reader/telemetrySimulator/obj/",
+      "outputPath": "/Users/michaellindberg/Code/Samples/AKS_IoTHub_Reader/telemetrySimulator/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"

@@ -4,6 +4,7 @@ using Microsoft.Azure.EventHubs.Processor;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace telemetryReader
 {
@@ -25,6 +26,9 @@ namespace telemetryReader
         static void Main(string[] args)
         {
             InitializeConfiguration();
+
+
+
             MainAsync(args).GetAwaiter().GetResult();
         }
 
@@ -43,13 +47,12 @@ namespace telemetryReader
             Console.WriteLine("Registering EventProcessor...");
 
             //Event hub settings
-            string EventHubName = Configuration["EventHubName"];
-            string EventHubConnectionString = Configuration["EventHubConnectionString"];
+            string EventHubName = Configuration["eventhub:eventHubName"];
+            string EventHubConnectionString = Configuration["eventhub:eventHubConnectionString"];
 
             //Storage settings
-            string StorageContainerName = Configuration["StorageContainerName"];
-            string StorageConnectionString = Configuration["StorageConnectionString"];
-
+            string StorageContainerName = Configuration["eventhub:storageContainerName"];
+            string StorageConnectionString = Configuration["eventhub:storageConnectionString"];
 
             Console.WriteLine("Eventhub: " + EventHubName);
             Console.WriteLine("Storage container: " + StorageContainerName);
@@ -62,8 +65,16 @@ namespace telemetryReader
                 StorageConnectionString,
                 StorageContainerName);
 
+            IDocumentService documentService = new DocumentService(
+                Configuration["cosmosdb:endpoint"],
+                Configuration["cosmosdb:key"],
+                Configuration["cosmosdb:dbName"],
+                Configuration["cosmosdb:collectionName"]
+            );
+            IEventProcessorFactory processorFactory = new SimpleEventProcessorFactory(documentService);
+
             // Registers the Event Processor Host and starts receiving messages
-            await eventProcessorHost.RegisterEventProcessorAsync<SimpleEventProcessor>();
+            await eventProcessorHost.RegisterEventProcessorFactoryAsync(processorFactory);
 
             Console.WriteLine("Receiving. Press ENTER to stop worker.");
             Console.ReadLine();

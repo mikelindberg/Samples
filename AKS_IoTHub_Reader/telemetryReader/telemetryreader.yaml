@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: telemetryreader
-        image: aksiot.azurecr.io/telemetryreader:latest
+        image: aksiottest.azurecr.io/telemetryreader:1.0.0
         stdin: true
         ports:
         - containerPort: 443

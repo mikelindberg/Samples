@@ -1,0 +1,24 @@
+# AKS IoT Hub Reader
+
+This sample is a walkthrough of using AKS (Azure Kubernetes Service) and ACI (Azure Container Instances) to host different applications used in an IoT scenario.
+
+In the sample you will setup and IoT Hub for ingesting device data to Azure, read that data using an EventProcessorHost, storing the data in CosmosDB and visualizing the data in a React application.
+
+## Create a resource group
+A resource group
+
+## Setting up Azure Kubernetes Service
+
+Azure Kubernetes Service (AKS) makes it simple to deploy a managed Kubernetes cluster in Azure. AKS reduces the complexity and operational overhead of managing Kubernetes by offloading much of that responsibility to Azure. As a hosted Kubernetes service, Azure handles critical tasks like health monitoring and maintenance for you. The Kubernetes masters are managed by Azure. You only manage and maintain the agent nodes
+
+If you have never worked with Kubernetes before then I would suggest to watch this [YouTube](https://www.youtube.com/watch?v=4ht22ReBjno) video.
+
+## Setting up Azure IoT Hub
+
+### What is Azure IoT Hub?
+IoT Hub is a managed service, hosted in the cloud, that acts as a central message hub for bi-directional communication between your IoT application and the devices it manages. You can use Azure IoT Hub to build IoT solutions with reliable and secure communications between millions of IoT devices and a cloud-hosted solution backend. You can connect virtually any device to IoT Hub.
+
+### Provision an Azure IoT Hub
+
+### Install yarn
+https://yarnpkg.com/lang/en/docs/install/#mac-stable

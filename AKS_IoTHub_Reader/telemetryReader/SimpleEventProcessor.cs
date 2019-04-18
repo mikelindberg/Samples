@@ -9,6 +9,13 @@ namespace telemetryReader
 {
     public class SimpleEventProcessor : IEventProcessor
     {
+        private readonly IDocumentService _documentService;
+
+        public SimpleEventProcessor(IDocumentService documentService)
+        {
+            _documentService = documentService;
+        }
+
         public Task CloseAsync(PartitionContext context, CloseReason reason)
         {
             Console.WriteLine($"Processor Shutting Down. Partition '{context.PartitionId}', Reason: '{reason}'.");
@@ -31,8 +38,7 @@ namespace telemetryReader
         {
             foreach (var eventData in messages)
             {
-                var data = Encoding.UTF8.GetString(eventData.Body.Array, eventData.Body.Offset, eventData.Body.Count);
-                Console.WriteLine($"Message received. Partition: '{context.PartitionId}', Data: '{data}'");
+                _documentService.StoreDocument(eventData);
             }
 
             return context.CheckpointAsync();
