@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.EventHubs;
 
@@ -16,7 +17,18 @@ namespace telemetryReader
         {
             this.dbName = dbName;
             this.collectionName = collectionName;
-            _documentClient = new DocumentClient(new Uri(endpoint), key);
+            _documentClient = new DocumentClient(new Uri(endpoint), key,
+                    new ConnectionPolicy{
+                        ConnectionMode = ConnectionMode.Direct,
+                        RequestTimeout = new TimeSpan(1, 0, 0),
+                        RetryOptions = new RetryOptions{
+                            MaxRetryAttemptsOnThrottledRequests = 10,
+                            MaxRetryWaitTimeInSeconds = 30
+                        }
+                    });
+
+            _documentClient.OpenAsync().GetAwaiter().GetResult();
+
         }
 
         //Store the document in a Cosmos DB collection
@@ -35,7 +47,23 @@ namespace telemetryReader
                 payload = payload
             };
 
-            await _documentClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(dbName, collectionName), newDocument);
+            try{
+                await _documentClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(dbName, collectionName), newDocument);
+            }
+            catch(Exception e)
+            {
+                if(e is DocumentClientException docEx)
+                {
+                    Console.WriteLine($"ERROR with document creation - Statuc code {docEx.StatusCode} - {docEx.Message}");
+                }else
+                {
+                    Console.WriteLine($"ERROR CosmosDB - {e.Message}");
+                }
+            }
+
+
+
+            
         }
     }
 }
