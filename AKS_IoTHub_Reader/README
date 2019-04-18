@@ -4,6 +4,13 @@ This sample is a walkthrough of using AKS (Azure Kubernetes Service) and ACI (Az
 
 In the sample you will setup and IoT Hub for ingesting device data to Azure, read that data using an EventProcessorHost, storing the data in CosmosDB and visualizing the data in a React application.
 
+## Pre-requisites
+- Visual Studio Code
+- .NET Core SDK 2.2 - 
+- Kubernetes CLI - https://kubernetes.io/docs/tasks/tools/install-kubectl/
+- Azure CLI - https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest
+- Yarn - https://yarnpkg.com/lang/en/docs/install/#mac-stable
+
 ## Create a resource group
 A resource group
 
@@ -20,5 +27,11 @@ IoT Hub is a managed service, hosted in the cloud, that acts as a central messag
 
 ### Provision an Azure IoT Hub
 
-### Install yarn
-https://yarnpkg.com/lang/en/docs/install/#mac-stable
+
+## Deploying the nodes to AKS
+
+ 
+### Execute the following command to create a Kubernetes secret (this is a current workaround because ACI virtual nodes do not yet support service principals)
+```
+kubectl create secret docker-registry acrcredts --docker-server=[youracrname].azurecr.io --docker-username=[youracrname] --docker-password=[youracrpwd] --docker-email=[avalidemail]
+```

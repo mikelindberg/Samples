@@ -5,3 +5,7 @@ telemetrySimulator/*
 telemetryReader/appsettings.development.json
 telemetryReader/bin/*
 telemetryReader/obj/*
+
+bin/
+obj/
+

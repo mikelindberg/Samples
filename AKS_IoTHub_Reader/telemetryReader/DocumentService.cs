@@ -31,6 +31,7 @@ namespace telemetryReader
                 enqueudUtcTime = eventData.SystemProperties.EnqueuedTimeUtc,
                 partition = eventData.SystemProperties.PartitionKey,
                 messageOffset = eventData.Body.Offset,
+                deviceid = eventData.SystemProperties["iothub-connection-device-id"].ToString(),
                 payload = payload
             };
 

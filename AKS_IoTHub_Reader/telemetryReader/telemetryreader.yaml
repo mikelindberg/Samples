@@ -16,9 +16,20 @@ spec:
     spec:
       containers:
       - name: telemetryreader
-        image: aksiottest.azurecr.io/telemetryreader:1.0.0
+        image: aksiottest.azurecr.io/telemetryreader:1.0.1
         stdin: true
         ports:
         - containerPort: 443
         - containerPort: 5671
         - containerPort: 8883
+      imagePullSecrets:
+        - name: acrcreds
+      nodeSelector:
+        kubernetes.io/role: agent
+        beta.kubernetes.io/os: linux
+        type: virtual-kubelet
+      tolerations:
+      - key: virtual-kubelet.io/provider
+        operator: Exists
+      - key: azure.com/aci
+        effect: NoSchedule
