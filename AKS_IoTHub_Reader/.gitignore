@@ -1,7 +1,13 @@
-# Ignore simulator
-telemetrySimulator/*
 
 #Ignore reader settings, bin and obj
 telemetryReader/appsettings.development.json
 telemetryReader/bin/*
 telemetryReader/obj/*
+
+bin/
+obj/
+
+#Ignore UI
+/telemetryui
+
+
