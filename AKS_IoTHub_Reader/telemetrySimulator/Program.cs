@@ -19,6 +19,7 @@ namespace telemetrySimulator
         static string iotDeviceConnectionString;
         static DeviceClient deviceClient;
 
+        static Random rand = new Random();
 
         static void Main(string[] args)
         {
@@ -48,7 +49,7 @@ namespace telemetrySimulator
 
         static public async Task InitDeviceClient()
         {
-           
+
             MqttTransportSettings mqttSetting = new MqttTransportSettings(TransportType.Mqtt_Tcp_Only);
             // DEV only! bypass certs validation
             mqttSetting.RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
@@ -63,12 +64,12 @@ namespace telemetrySimulator
 
         private static async void SendDeviceToCloudMessagesAsync()
         {
-            double minTemperature = 20; 
-            Random rand = new Random();
+            double minTemperature = 20;
 
-            TruckTelemetry truck = new TruckTelemetry{ 
+            TruckTelemetry truck = new TruckTelemetry
+            {
                 temperature = minTemperature,
-                longitude = centerLongitude, 
+                longitude = centerLongitude,
                 latitude = centerLatitude
             };
 
@@ -78,11 +79,12 @@ namespace telemetrySimulator
                 var (latitude, longitude) = GenerateNewCoordinates(truck.latitude, truck.longitude, 0.01);
                 truck.longitude = longitude;
                 truck.latitude = latitude;
+                truck.speed = vary(30, 5, 0, 80);
                 truck.temperature = currentTemperature;
 
                 var messageString = JsonConvert.SerializeObject(truck);
                 var message = new Message(Encoding.ASCII.GetBytes(messageString));
-               
+
                 message.Properties.Add("$$MessageSchema", "truck-sensors;v1");
 
                 await deviceClient.SendEventAsync(message);
@@ -102,11 +104,23 @@ namespace telemetrySimulator
             return (newLatitude, newLongitude);
         }
 
+        public static double vary(int avg, int percentage, int min, int max)
+        {
+            //See sample https://github.com/Azure/device-simulation-dotnet/blob/master/Services/data/devicemodels/scripts/truck-02-state.js
+            var value = avg * (1 + ((percentage / 100) * (2 * rand.NextDouble() - 1)));
+            value = Math.Max(value, min);
+            value = Math.Min(value, max);
+            return value;
+        }
     }
 
-    public class TruckTelemetry{
+    public class TruckTelemetry
+    {
         public double latitude { get; set; }
-        public double longitude {get;set;}
-        public double temperature {get;set;}
+        public double longitude { get; set; }
+        public double speed { get; set; }
+        public string speed_unit { get; set; } = "mph";
+        public double temperature { get; set; }
+        public string temperature_unit { get; set; } = "f";
     }
 }

@@ -9,7 +9,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using telemetryReader.Models;
 
-
 namespace telemetryReader
 {
     public class DocumentService : IDocumentService
@@ -41,21 +40,21 @@ namespace telemetryReader
         //Store the document in a Cosmos DB collection
         public async Task StoreDocument(EventData eventData)
         {
-            
+
             var payload = Encoding.UTF8.GetString(eventData.Body.Array, eventData.Body.Offset, eventData.Body.Count);
 
             //parse the data and insert depending on message schema type / if it's not a truck we discard the message
             TruckDeviceEvent parsed = JsonConvert.DeserializeObject<TruckDeviceEvent>(payload);
 
             Console.WriteLine("EventData contains key ..." + eventData.Properties.ContainsKey("$$MessageSchema").ToString());
-            
+
             if (eventData.Properties.ContainsKey("$$MessageSchema") && eventData.Properties["$$MessageSchema"].ToString().ToLower() == "truck-sensors;v1")
             {
                 Console.WriteLine("Parsing Truck Document...");
 
                 var newDocument = new
                 {
-                    //id = eventData.SystemProperties["iothub-connection-device-id"].ToString(),
+                    id = eventData.SystemProperties["iothub-connection-device-id"].ToString(),
                     processedUtcTime = DateTime.UtcNow,
                     enqueudUtcTime = eventData.SystemProperties.EnqueuedTimeUtc,
                     partition = eventData.SystemProperties.PartitionKey,
@@ -63,14 +62,18 @@ namespace telemetryReader
                     deviceid = eventData.SystemProperties["iothub-connection-device-id"].ToString(),
                     devicetype = "truck",
                     location = new Point(parsed.longitude, parsed.latitude),
-                    temperature = parsed.temperature
+                    speed = parsed.speed,
+                    speed_unit = parsed.speed_unit,
+                    temperature = parsed.temperature,
+                    temperature_unit = parsed.temperature_unit
                 };
 
                 try
                 {
                     Console.WriteLine("Inserting new doc...");
-                    //Upsert instead?
-                    await _documentClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(dbName, collectionName), newDocument);
+                    // Uri documentCollection = UriFactory.CreateDocumentCollectionUri(dbName, collectionName);
+                    // await _documentClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(dbName, collectionName), newDocument);
+                    await _documentClient.UpsertDocumentAsync(UriFactory.CreateDocumentCollectionUri(dbName, collectionName), newDocument);
                 }
                 catch (Exception e)
                 {
@@ -84,9 +87,6 @@ namespace telemetryReader
                     }
                 }
             }
-
-
-
         }
     }
 }
