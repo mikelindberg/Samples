@@ -7,7 +7,7 @@ using Microsoft.Azure.Documents.Spatial;
 using Microsoft.Azure.EventHubs;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using telemetryReader.Models;
+using telemetryModel;
 
 namespace telemetryReader
 {

@@ -1,7 +1,6 @@
-using Microsoft.Azure.Documents.Spatial;
-using System;
+﻿using System;
 
-namespace telemetryReader.Models
+namespace telemetryModel
 {
     public class TruckDeviceEvent
     {

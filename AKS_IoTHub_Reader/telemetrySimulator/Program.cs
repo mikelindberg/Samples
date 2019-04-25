@@ -7,6 +7,7 @@ using Microsoft.Azure.Devices.Client;
 using Microsoft.Azure.Devices.Client.Transport.Mqtt;
 using Microsoft.Azure.Devices.Shared;
 using Newtonsoft.Json;
+using telemetryModel;
 
 namespace telemetrySimulator
 {
@@ -66,7 +67,7 @@ namespace telemetrySimulator
         {
             double minTemperature = 20;
 
-            TruckTelemetry truck = new TruckTelemetry
+            TruckDeviceEvent truck = new TruckDeviceEvent
             {
                 temperature = minTemperature,
                 longitude = centerLongitude,
@@ -114,13 +115,4 @@ namespace telemetrySimulator
         }
     }
 
-    public class TruckTelemetry
-    {
-        public double latitude { get; set; }
-        public double longitude { get; set; }
-        public double speed { get; set; }
-        public string speed_unit { get; set; } = "mph";
-        public double temperature { get; set; }
-        public string temperature_unit { get; set; } = "f";
-    }
 }
