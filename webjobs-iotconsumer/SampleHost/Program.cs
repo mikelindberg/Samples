@@ -3,6 +3,9 @@
 
 using System;
 using System.Threading.Tasks;
+using Microsoft.Azure.EventHubs;
+using Microsoft.Azure.EventHubs.Processor;
+using Microsoft.Azure.WebJobs.EventHubs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,20 +19,21 @@ namespace SampleHost
     {
         public static async Task Main(string[] args)
         {
+            await RunAsFunction();
+        }
 
+        static async Task RunAsFunction()
+        {
 
             string globalAppInsightsKey = String.Empty;
             var builder = new HostBuilder()
                 .UseEnvironment("Development")
                 .ConfigureWebJobs(b =>
                 {
-                    b.AddAzureStorageCoreServices()
-                    .AddEventHubs(a =>
-                    {
-                        a.BatchCheckpointFrequency = 10;
-                        a.EventProcessorOptions.MaxBatchSize = 1;
-                        a.EventProcessorOptions.PrefetchCount = 10;
-                    });
+                    b.AddAzureStorageCoreServices();
+                    b.AddEventHubs(a =>
+                        a.EventProcessorOptions.ReceiveTimeout = new TimeSpan(0, 0, 3) // default is 1 min. Is that maybe one of problems?
+                    );
                 })
                 .ConfigureAppConfiguration(b =>
                 {
@@ -50,30 +54,23 @@ namespace SampleHost
                         b.AddApplicationInsights(o => o.InstrumentationKey = appInsightsKey);
                     }
                 })
-                //.ConfigureServices(serviceCollection => serviceCollection
-                //.Configure<AzureFileLoggerOptions>(options =>
-                //{
-                //    options.FileName = "azure-diagnostics-";
-                //    options.FileSizeLimit = 50 * 1024;
-                //    options.RetainedFileCountLimit = 5;
-                //}).Configure<AzureBlobLoggerOptions>(options =>
-                //{
-                //    options.BlobName = "log.txt";
-                //}))
                 .UseConsoleLifetime();
 
             var host = builder.Build();
             using (host)
             {
-
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
                 var config = new Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration(globalAppInsightsKey);
                 var telemetry = new Microsoft.ApplicationInsights.TelemetryClient(config);
                 telemetry.TrackTrace("WebJob host initialized and starting...");
 
+                foreach(var item in assemblies)
+                {
+                    telemetry.TrackTrace($"Loaded assembly: {item.FullName}", Microsoft.ApplicationInsights.DataContracts.SeverityLevel.Information);
+                }
                 await host.RunAsync();
-
-
             }
         }
+
     }
 }

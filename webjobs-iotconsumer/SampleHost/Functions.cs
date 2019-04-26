@@ -14,23 +14,19 @@ namespace SampleHost
     public class Functions
     {
 
-        public void ProcessEvents([EventHubTrigger("aksIoTHub", Connection = "TestEventHubConnection")] EventData[] events, ILogger log)
+        public void ProcessEvents([EventHubTrigger("aksIoTHub", Connection = "TestEventHubConnection")] EventData[] events, ILogger log, Microsoft.Azure.EventHubs.Processor.PartitionContext partitionContext)
         {
-
+            
             foreach (var evt in events)
             {
+                
                 log.LogTrace(new EventId(505, "Event Processed"),
                     $"Event processed (Offset={evt.SystemProperties.Offset}, " +
                     $"SequenceNumber={evt.SystemProperties.SequenceNumber}), " +
                     $"EnqueueTimeUtc={evt.SystemProperties.EnqueuedTimeUtc}, " +
-                    $"EnqueueTime-Now={System.DateTime.UtcNow - evt.SystemProperties.EnqueuedTimeUtc}");
+                    $"EnqueueTime-Now={System.DateTime.UtcNow.Subtract(evt.SystemProperties.EnqueuedTimeUtc).TotalMilliseconds}, " +
+                    $"PartitionId={partitionContext.PartitionId}");
 
-
-                //log.LogInformation(
-                //    $"Event processed (Offset={evt.SystemProperties.Offset}, " +
-                //    $"SequenceNumber={evt.SystemProperties.SequenceNumber}), " +
-                //    $"EnqueueTimeUtc={evt.SystemProperties.EnqueuedTimeUtc}, " +
-                //    $"EnqueueTime-Now={evt.SystemProperties.EnqueuedTimeUtc - System.DateTime.UtcNow}");
             }
         }
     }
