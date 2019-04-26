@@ -57,6 +57,11 @@ namespace TestHostEPH
                     StorageConnectionString,
                     StorageContainerName);
 
+                eventProcessorHost.PartitionManagerOptions = new PartitionManagerOptions()
+                {
+                    LeaseDuration = new TimeSpan(0, 0, 10),
+                    RenewInterval = new TimeSpan(0, 0, 4)
+                };
 
                 // Registers the Event Processor Host and starts receiving messages
                 await eventProcessorHost.RegisterEventProcessorAsync<SimpleEventProcessor>();
@@ -67,16 +72,16 @@ namespace TestHostEPH
                 Console.ReadLine();
 
                 // Disposes of the Event Processor Host
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 telemetry.TrackException(ex);
                 throw ex;
             }
             finally
             {
-                if(eventProcessorHost != null) await eventProcessorHost.UnregisterEventProcessorAsync();
+                if (eventProcessorHost != null) await eventProcessorHost.UnregisterEventProcessorAsync();
             }
 
 
