@@ -59,7 +59,7 @@ namespace TestHostEPH
 
                 eventProcessorHost.PartitionManagerOptions = new PartitionManagerOptions()
                 {
-                    LeaseDuration = new TimeSpan(0, 0, 10),
+                    LeaseDuration = new TimeSpan(0, 0, 15),
                     RenewInterval = new TimeSpan(0, 0, 4)
                 };
 

@@ -29,22 +29,36 @@ namespace TestHostEPH
 
 
         public Task CloseAsync(PartitionContext context, CloseReason reason)
-
         {
 
-            telemetry.TrackTrace($"Processor Shutting Down. Partition '{context.PartitionId}', Reason: '{reason}'.", SeverityLevel.Information);
-
+            try
+            {
+                telemetry.TrackTrace($"CloseAsync. Partition '{context.PartitionId}', Reason: '{reason}'.", SeverityLevel.Information);
+            }
+            catch (Exception ex)
+            {
+                telemetry.TrackException(ex);
+                throw ex;
+            }
             return Task.CompletedTask;
 
         }
+            
 
 
 
         public Task OpenAsync(PartitionContext context)
-
         {
 
-            telemetry.TrackTrace($"SimpleEventProcessor initialized. Partition: '{context.PartitionId}'", SeverityLevel.Information);
+            try
+            {
+                telemetry.TrackTrace($"SimpleEventProcessor initialized. Partition: '{context.PartitionId}'", SeverityLevel.Information);
+            }
+            catch (Exception ex)
+            {
+                telemetry.TrackException(ex);
+                throw ex;
+            }
 
             return Task.CompletedTask;
 
@@ -56,7 +70,15 @@ namespace TestHostEPH
 
         {
 
-            telemetry.TrackTrace($"Error on Partition: {context.PartitionId}, Error: {error.Message}", SeverityLevel.Information);
+            try
+            {
+                telemetry.TrackTrace($"Error on Partition: {context.PartitionId}, Error: {error.Message}", SeverityLevel.Information);
+            }
+            catch (Exception ex)
+            {
+                telemetry.TrackException(ex);
+                throw ex;
+            }
 
             return Task.CompletedTask;
 
@@ -66,19 +88,27 @@ namespace TestHostEPH
 
         public Task ProcessEventsAsync(PartitionContext context, IEnumerable<EventData> messages)
         {
-            foreach (var eventData in messages)
+            try
             {
+                foreach (var eventData in messages)
+                {
 
-                var data = Encoding.UTF8.GetString(eventData.Body.Array, eventData.Body.Offset, eventData.Body.Count);
-                var tt = new TraceTelemetry();
-                
-                telemetry.TrackTrace(
-                    $"EPH ProcessEventsAsync (Offset={eventData.SystemProperties.Offset}, " +
-                    $"SequenceNumber={eventData.SystemProperties.SequenceNumber}, " +
-                    $"EnqueueTimeUtc={eventData.SystemProperties.EnqueuedTimeUtc}, " +
-                    $"EnqueueTime-Now={System.DateTime.UtcNow.Subtract(eventData.SystemProperties.EnqueuedTimeUtc).TotalMilliseconds}, " +
-                    $"PartitionId={context.PartitionId})", SeverityLevel.Verbose);
+                    var data = Encoding.UTF8.GetString(eventData.Body.Array, eventData.Body.Offset, eventData.Body.Count);
+                    var tt = new TraceTelemetry();
 
+                    telemetry.TrackTrace(
+                        $"EPH ProcessEventsAsync (Offset={eventData.SystemProperties.Offset}, " +
+                        $"SequenceNumber={eventData.SystemProperties.SequenceNumber}, " +
+                        $"EnqueueTimeUtc={eventData.SystemProperties.EnqueuedTimeUtc}, " +
+                        $"EnqueueTime-Now={System.DateTime.UtcNow.Subtract(eventData.SystemProperties.EnqueuedTimeUtc).TotalMilliseconds}, " +
+                        $"PartitionId={context.PartitionId})", SeverityLevel.Verbose);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                telemetry.TrackException(ex);
+                throw ex;
             }
             return context.CheckpointAsync();
 
