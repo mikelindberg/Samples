@@ -17,7 +17,15 @@ namespace TestHostEPH
 
         public static async Task Main(string[] args)
         {
-            await RunAsEPHProcessor();
+            try
+            {
+                InitializeConfiguration();
+                await RunAsEPHProcessor();
+            }
+            catch (Exception ex)
+            {
+                telemetry.TrackException(ex);
+            }
         }
 
 
@@ -38,38 +46,41 @@ namespace TestHostEPH
             EventProcessorHost eventProcessorHost = null;
             try
             {
-                InitializeConfiguration();
-
-                //Event hub settings
-                string EventHubName = Configuration["EventHubName"];
-                string EventHubConnectionString = Configuration["ConnectionStrings:TestEventHubConnection"];
-
-                //Storage settings
-                string StorageContainerName = Configuration["StorageContainerName"];
-                string StorageConnectionString = Configuration["ConnectionStrings:AzureWebJobsStorage"];
-
-                //Setup event processor host
-
-                eventProcessorHost = new EventProcessorHost(
-                    EventHubName,
-                    PartitionReceiver.DefaultConsumerGroupName,
-                    EventHubConnectionString,
-                    StorageConnectionString,
-                    StorageContainerName);
-
-                eventProcessorHost.PartitionManagerOptions = new PartitionManagerOptions()
+                while (true) // restart indefinetely...
                 {
-                    LeaseDuration = new TimeSpan(0, 0, 15),
-                    RenewInterval = new TimeSpan(0, 0, 4)
-                };
+                    
 
-                // Registers the Event Processor Host and starts receiving messages
-                await eventProcessorHost.RegisterEventProcessorAsync<SimpleEventProcessor>();
+                    //Event hub settings
+                    string EventHubName = Configuration["EventHubName"];
+                    string EventHubConnectionString = Configuration["ConnectionStrings:TestEventHubConnection"];
+
+                    //Storage settings
+                    string StorageContainerName = Configuration["StorageContainerName"];
+                    string StorageConnectionString = Configuration["ConnectionStrings:AzureWebJobsStorage"];
+
+                    //Setup event processor host
+
+                    eventProcessorHost = new EventProcessorHost(
+                        EventHubName,
+                        PartitionReceiver.DefaultConsumerGroupName,
+                        EventHubConnectionString,
+                        StorageConnectionString,
+                        StorageContainerName);
+
+                    eventProcessorHost.PartitionManagerOptions = new PartitionManagerOptions()
+                    {
+                        LeaseDuration = new TimeSpan(0, 0, 15),
+                        RenewInterval = new TimeSpan(0, 0, 4)
+                    };
+
+                    // Registers the Event Processor Host and starts receiving messages
+                    await eventProcessorHost.RegisterEventProcessorAsync<SimpleEventProcessor>();
 
 
-                Console.WriteLine("Receiving. Press ENTER to stop worker.");
+                    Console.WriteLine("Receiving. Press ENTER to stop worker.");
 
-                Console.ReadLine();
+                    Console.ReadLine();
+                }
 
                 // Disposes of the Event Processor Host
 
@@ -77,7 +88,8 @@ namespace TestHostEPH
             catch (Exception ex)
             {
                 telemetry.TrackException(ex);
-                throw ex;
+                await RunAsEPHProcessor();
+                //throw ex;
             }
             finally
             {

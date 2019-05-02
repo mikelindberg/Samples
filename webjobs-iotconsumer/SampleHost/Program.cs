@@ -3,8 +3,10 @@
 
 using System;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.Azure.EventHubs;
 using Microsoft.Azure.EventHubs.Processor;
+using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.EventHubs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Configuration;
@@ -12,28 +14,66 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.AzureAppServices;
+using Microsoft.Extensions.Options;
 
 namespace SampleHost
 {
     class Program
     {
+        private static Microsoft.ApplicationInsights.TelemetryClient telemetry = null;
+        private static IConfigurationRoot Configuration { get; set; }
+
         public static async Task Main(string[] args)
         {
             await RunAsFunction();
         }
 
+        private static void InitializeConfiguration()
+        {
+            var builder = new ConfigurationBuilder().AddJsonFile("appsettings.development.json", false, true);
+            Configuration = builder.Build();
+
+            var appinsightKey = Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"];
+            var config = new Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration(appinsightKey);
+            telemetry = new Microsoft.ApplicationInsights.TelemetryClient(config);
+            telemetry.TrackTrace("EPH configuration initialized...", SeverityLevel.Information);
+        }
+
         static async Task RunAsFunction()
         {
+
+            InitializeConfiguration();
+
+            //Event hub settings
+            string EventHubName = Configuration["EventHubName"];
+            string EventHubConnectionString = Configuration["ConnectionStrings:TestEventHubConnection"];
+
+            //Storage settings
+            string StorageContainerName = Configuration["StorageContainerName"];
+            string StorageConnectionString = Configuration["ConnectionStrings:AzureWebJobsStorage"];
+
 
             string globalAppInsightsKey = String.Empty;
             var builder = new HostBuilder()
                 .UseEnvironment("Development")
                 .ConfigureWebJobs(b =>
                 {
+                    EventProcessorHost eventProcessorHost = new EventProcessorHost(
+                    EventHubName,
+                    PartitionReceiver.DefaultConsumerGroupName,
+                    EventHubConnectionString,
+                    StorageConnectionString,
+                    StorageContainerName);
+                    eventProcessorHost.PartitionManagerOptions = new PartitionManagerOptions()
+                    {
+                        LeaseDuration = new TimeSpan(0, 0, 15),
+                        RenewInterval = new TimeSpan(0, 0, 4)
+                    };
+
                     b.AddAzureStorageCoreServices();
-                    b.AddEventHubs(a =>
-                        a.EventProcessorOptions.ReceiveTimeout = new TimeSpan(0, 0, 3) // default is 1 min. Is that maybe one of problems?
-                    );
+                    b.AddEventHubs(a => a.AddEventProcessorHost(EventHubName, eventProcessorHost));
+                    //b.AddAzureStorageCoreServices();
+                    //b.AddEventHubs();
                 })
                 .ConfigureAppConfiguration(b =>
                 {
@@ -57,8 +97,12 @@ namespace SampleHost
                 .UseConsoleLifetime();
 
             var host = builder.Build();
+
             using (host)
             {
+
+                var options = host.Services.GetService<IOptions<EventHubOptions>>().Value;
+
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies();
                 var config = new Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration(globalAppInsightsKey);
                 var telemetry = new Microsoft.ApplicationInsights.TelemetryClient(config);
@@ -69,6 +113,7 @@ namespace SampleHost
                     telemetry.TrackTrace($"Loaded assembly: {item.FullName}", Microsoft.ApplicationInsights.DataContracts.SeverityLevel.Information);
                 }
                 await host.RunAsync();
+                await host.WaitForShutdownAsync();
             }
         }
 

@@ -14,7 +14,7 @@ namespace SampleHost
     public class Functions
     {
 
-        public void ProcessEvents([EventHubTrigger("aksIoTHub", Connection = "TestEventHubConnection")] EventData[] events, ILogger log, Microsoft.Azure.EventHubs.Processor.PartitionContext partitionContext)
+        public void ProcessEvents([EventHubTrigger("sita-apc-flex", Connection = "TestEventHubConnection")] EventData[] events, ILogger log, Microsoft.Azure.EventHubs.Processor.PartitionContext partitionContext)
         {
             
             foreach (var evt in events)
@@ -22,10 +22,10 @@ namespace SampleHost
                 
                 log.LogTrace(new EventId(505, "Event Processed"),
                     $"Event processed (Offset={evt.SystemProperties.Offset}, " +
-                    $"SequenceNumber={evt.SystemProperties.SequenceNumber}), " +
+                    $"SequenceNumber={evt.SystemProperties.SequenceNumber}, " +
                     $"EnqueueTimeUtc={evt.SystemProperties.EnqueuedTimeUtc}, " +
                     $"EnqueueTime-Now={System.DateTime.UtcNow.Subtract(evt.SystemProperties.EnqueuedTimeUtc).TotalMilliseconds}, " +
-                    $"PartitionId={partitionContext.PartitionId}");
+                    $"PartitionId={partitionContext.PartitionId})");
 
             }
         }

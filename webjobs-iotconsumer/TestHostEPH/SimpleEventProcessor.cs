@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Microsoft.ApplicationInsights.DataContracts;
+using Microsoft.Extensions.Configuration;
 
 namespace TestHostEPH
 {
@@ -19,11 +20,19 @@ namespace TestHostEPH
     {
  
         Microsoft.ApplicationInsights.TelemetryClient telemetry = null;
+        private static IConfigurationRoot Configuration { get; set; }
 
         public SimpleEventProcessor()
         {
-            var config = new Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration("e53c5bd5-6da4-4fa9-81eb-2a33cc6e1d0c");
+
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.development.json", false, true);
+            Configuration = builder.Build();
+
+            var appinsightKey = Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"];
+            var config = new Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration(appinsightKey);
             telemetry = new Microsoft.ApplicationInsights.TelemetryClient(config);
+
             telemetry.TrackTrace("SimpleEventProcessor initialized...", SeverityLevel.Information);
         }
 
