@@ -26,17 +26,20 @@ namespace telemetryReader
         static void Main(string[] args)
         {
             InitializeConfiguration();
-
-
-
             MainAsync(args).GetAwaiter().GetResult();
         }
 
         //Load secrets and appsettings.json
         private static void InitializeConfiguration()
         {
+            string settingsFile = "appsettings.json";
+#if DEBUG
+            settingsFile = System.IO.Directory.GetCurrentDirectory() + "/appsettings.development.json";
+#endif
+
+            Console.WriteLine(settingsFile);
             var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", false, true)
+                .AddJsonFile(settingsFile, false, true)
                 .AddUserSecrets<Program>();
 
             Configuration = builder.Build();
