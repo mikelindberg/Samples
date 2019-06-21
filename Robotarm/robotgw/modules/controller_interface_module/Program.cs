@@ -56,7 +56,7 @@ namespace controller_interface_module
 
                 // Open a connection to the Edge runtime
                 // ModuleClient iotClient = await ModuleClient.CreateFromEnvironmentAsync(settings);
-                iotClient = DeviceClient.CreateFromConnectionString("HostName=robtoarmhub.azure-devices.net;DeviceId=testDevice;SharedAccessKey=xpx0qcbBIUHBn+2ah14g6rgwSTyK/LbaZBPeiOIlj0s=", settings);
+                iotClient = DeviceClient.CreateFromConnectionString("", settings);
                 await iotClient.OpenAsync();
                 Console.WriteLine("IoT Hub module client initialized.");
 
