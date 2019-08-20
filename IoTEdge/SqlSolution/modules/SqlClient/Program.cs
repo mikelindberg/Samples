@@ -56,9 +56,12 @@ namespace SqlClient
             ioTHubModuleClient = await ModuleClient.CreateFromEnvironmentAsync(settings);
             await ioTHubModuleClient.OpenAsync();
 
-            //read twin  setting upon first load
+            //read twin setting upon first load
             var twin = await ioTHubModuleClient.GetTwinAsync();
             await onDesiredPropertiesUpdate(twin.Properties.Desired, ioTHubModuleClient);
+
+            //Register property update callback
+            await ioTHubModuleClient.SetDesiredPropertyUpdateCallbackAsync(onDesiredPropertiesUpdate, null);
 
             Console.WriteLine("IoT Hub module client initialized.");
             await Run();
