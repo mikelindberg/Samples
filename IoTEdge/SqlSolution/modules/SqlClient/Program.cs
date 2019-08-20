@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.Devices.Client;
 using Microsoft.Azure.Devices.Client.Transport.Mqtt;
+using Microsoft.Azure.Devices.Shared;
 using Newtonsoft.Json;
 using Sql = System.Data.SqlClient;
 
@@ -16,6 +17,7 @@ namespace SqlClient
 {
     class Program
     {
+        static int interval = 30000;
         static ModuleClient ioTHubModuleClient;
         static int lastId = 0;
         static string str = "Data Source=tcp:172.18.0.3,1433;Initial Catalog=MeasurementsDB;User Id=SA;Password=Strong!Passw0rd;TrustServerCertificate=False;Connection Timeout=30;";
@@ -53,8 +55,50 @@ namespace SqlClient
             // Open a connection to the Edge runtime
             ioTHubModuleClient = await ModuleClient.CreateFromEnvironmentAsync(settings);
             await ioTHubModuleClient.OpenAsync();
+
+            //read twin  setting upon first load
+            var twin = await ioTHubModuleClient.GetTwinAsync();
+            await onDesiredPropertiesUpdate(twin.Properties.Desired, ioTHubModuleClient);
+
             Console.WriteLine("IoT Hub module client initialized.");
             await Run();
+        }
+
+        // Handle property updates
+        static async Task onDesiredPropertiesUpdate(TwinCollection desiredProperties, object userContext)
+        {
+            try
+            {
+                Console.WriteLine("Desired property change:");
+                Console.WriteLine(JsonConvert.SerializeObject(desiredProperties));
+
+                if (desiredProperties.Count > 0)
+                {
+                    if (desiredProperties["interval"] != null)
+                        interval = desiredProperties["interval"];
+                }
+
+                var propertiesToUpdate = new
+                {
+                    interval = interval
+                };
+
+                var reportedProperties = new TwinCollection(JsonConvert.SerializeObject(propertiesToUpdate));
+                await ioTHubModuleClient.UpdateReportedPropertiesAsync(reportedProperties);
+            }
+            catch (AggregateException ex)
+            {
+                foreach (Exception exception in ex.InnerExceptions)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Error when receiving desired property: {0}", exception);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Error when receiving desired property: {0}", ex.Message);
+            }
         }
 
         async static Task Run()
