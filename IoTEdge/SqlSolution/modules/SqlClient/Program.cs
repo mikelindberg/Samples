@@ -122,7 +122,7 @@ namespace SqlClient
                     Console.WriteLine(ex.Message);
                 }
 
-                await Task.Delay(10000);
+                await Task.Delay(interval);
             }
         }
 
